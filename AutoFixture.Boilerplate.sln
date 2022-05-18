@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32422.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Boilerplate", "AutoFixture.Boilerplate\AutoFixture.Boilerplate.csproj", "{26CE17F6-A720-48C4-BC51-6E87FF936A6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFixture.Boilerplate.Tests", "AutoFixture.Boilerplate.Tests\AutoFixture.Boilerplate.Tests.csproj", "{02CA57CC-B5FC-4338-B4C1-DCD1E4D9F4AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26CE17F6-A720-48C4-BC51-6E87FF936A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26CE17F6-A720-48C4-BC51-6E87FF936A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26CE17F6-A720-48C4-BC51-6E87FF936A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26CE17F6-A720-48C4-BC51-6E87FF936A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02CA57CC-B5FC-4338-B4C1-DCD1E4D9F4AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02CA57CC-B5FC-4338-B4C1-DCD1E4D9F4AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02CA57CC-B5FC-4338-B4C1-DCD1E4D9F4AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02CA57CC-B5FC-4338-B4C1-DCD1E4D9F4AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE8E8CDB-5406-40A0-9F3F-379E2094FF59}
+	EndGlobalSection
+EndGlobal

@@ -1,4 +1,4 @@
-﻿namespace AutoFixture.Boilerplate.Tests.Services
+﻿namespace AutoFixture.Boilerplate.Tests.DummyServices
 {
     public class ServiceWithDependencies
     {

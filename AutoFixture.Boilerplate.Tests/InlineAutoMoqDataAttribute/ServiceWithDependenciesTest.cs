@@ -1,5 +1,5 @@
 using AutoFixture.Boilerplate;
-using AutoFixture.Boilerplate.Tests.Services;
+using AutoFixture.Boilerplate.Tests.DummyServices;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Moq;

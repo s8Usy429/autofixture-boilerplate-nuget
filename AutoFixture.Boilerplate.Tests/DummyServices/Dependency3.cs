@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoFixture.Boilerplate.Tests.Services
+namespace AutoFixture.Boilerplate.Tests.DummyServices
 {
     public class Dependency3 : IDependency3
     {

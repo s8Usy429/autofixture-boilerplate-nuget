@@ -5,7 +5,7 @@ using Xunit;
 
 namespace AutoFixture.Boilerplate.Tests.BaseTest
 {
-    public class ServiceWithDependenciesTest : BaseTest<ServiceWithDependencies>
+    public class ServiceWithDependenciesTest : AutoMoqTest<ServiceWithDependencies>
     {
         [Theory, AutoData]
         public void Test1(int offset, int sum1, int sum2, int sum3)

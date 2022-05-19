@@ -6,7 +6,7 @@ using Xunit;
 
 namespace AutoFixture.Boilerplate.Tests.BaseTest
 {
-    public class ServiceWithAmbiguousContructorTest : BaseTest<ServiceWithAmbiguousContructor>
+    public class ServiceWithAmbiguousContructorTest : AutoMoqTest<ServiceWithAmbiguousContructor>
     {
         protected override void CustomizeFixture(IFixture fixture)
         {

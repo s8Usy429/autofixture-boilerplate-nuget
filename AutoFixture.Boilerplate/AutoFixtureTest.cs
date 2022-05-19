@@ -1,10 +1,9 @@
-﻿using AutoFixture.AutoMoq;
-using Moq;
+﻿using Moq;
 using System;
 
 namespace AutoFixture.Boilerplate
 {
-    public abstract class BaseTest
+    public abstract class AutoFixtureTest
     {
         private readonly Lazy<IFixture> _lazyFixture;
 
@@ -15,11 +14,11 @@ namespace AutoFixture.Boilerplate
             return Fixture.Freeze<Mock<T>>();
         }
 
-        protected BaseTest() : this(_ => { })
+        protected AutoFixtureTest() : this(_ => { })
         {
         }
 
-        protected BaseTest(Action<IFixture> mandatoryFixtureCustomization)
+        protected AutoFixtureTest(Action<IFixture> mandatoryFixtureCustomization)
         {
             _lazyFixture = new Lazy<IFixture>(() =>
             {
@@ -31,17 +30,5 @@ namespace AutoFixture.Boilerplate
         }
 
         protected virtual void CustomizeFixture(IFixture fixture) { }
-    }
-
-    public abstract class BaseTest<TSut> : BaseTest
-    {
-        private readonly Lazy<TSut> _lazySut;
-
-        protected TSut Sut => _lazySut.Value;
-
-        protected BaseTest() : base(fixture => fixture.Customize(new AutoMoqCustomization { ConfigureMembers = true }))
-        {
-            _lazySut = new Lazy<TSut>(() => Fixture.Create<TSut>());
-        }
     }
 }

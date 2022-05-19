@@ -5,7 +5,24 @@
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<EnableNETAnalyzers>True</EnableNETAnalyzers>
 	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	<PackageLicenseFile>..\LICENSE</PackageLicenseFile>
+	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	<AnalysisLevel>latest</AnalysisLevel>
+	<Authors>s8Usy429</Authors>
+	<Company>s8Usy429</Company>
+	<Description>Convenient base class and attributes setting up AutoMoq.</Description>
+	<PackageProjectUrl>https://github.com/s8Usy429/autofixture-boilerplate-nuget</PackageProjectUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<RepositoryUrl>https://github.com/s8Usy429/autofixture-boilerplate-nuget</RepositoryUrl>
+	<PackageTags>AutoMoq;xUnit;unit test;dotnet</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />

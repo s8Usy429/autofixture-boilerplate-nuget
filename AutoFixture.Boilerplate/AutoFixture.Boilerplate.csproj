@@ -10,7 +10,7 @@
 	<AnalysisLevel>latest</AnalysisLevel>
 	<Authors>s8Usy429</Authors>
 	<Company>s8Usy429</Company>
-	<Description>Convenient base class and attributes setting up AutoMoq.</Description>
+	<Description>A set of convenient base classes and attributes to work with AutoMoq.</Description>
 	<PackageProjectUrl>https://github.com/s8Usy429/autofixture-boilerplate-nuget</PackageProjectUrl>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<RepositoryUrl>https://github.com/s8Usy429/autofixture-boilerplate-nuget</RepositoryUrl>

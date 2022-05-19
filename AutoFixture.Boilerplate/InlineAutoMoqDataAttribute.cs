@@ -8,5 +8,10 @@ namespace AutoFixture.Boilerplate
         {
 
         }
+
+        protected InlineAutoMoqDataAttribute(AutoMoqDataAttribute autoMoqDataAttribute, params object[] values) : base(autoMoqDataAttribute, values)
+        {
+
+        }
     }
 }

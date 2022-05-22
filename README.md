@@ -25,7 +25,7 @@ public class TheSutTests : AutoMoqTest<TheTypeOfTheSut>
 	Sut.MethodUnderTest(param1);
 
 	// Use the Mock<T> method exposed from the base class (short for Fixture.Freeze<Mock<T>>())
-	Mock<TypeOfDependency>().Verify(s => s.DependentMethon());
+	Mock<TypeOfDependency>().Verify(s => s.DependentMethod());
 	...
 }
 ```
@@ -49,7 +49,7 @@ public class TheSutTests : AutoFixtureTest
 
 	sut.MethodUnderTest(param1);
 	
-	mockDependency.Verify(s => s.DependentMethon());
+	mockDependency.Verify(s => s.DependentMethod());
 	...
 }
 ```

@@ -3,15 +3,17 @@ using System;
 
 namespace AutoFixture.Boilerplate
 {
-    public abstract class AutoMoqTest<TSut> : AutoFixtureTest
+    public abstract class AutoMoqTest : AutoFixtureTest
     {
-        private readonly Lazy<TSut> _lazySut;
-
-        protected TSut Sut => _lazySut.Value;
-
         protected AutoMoqTest() : base(fixture => fixture.Customize(new AutoMoqCustomization { ConfigureMembers = true }))
         {
-            _lazySut = new Lazy<TSut>(() => Fixture.Create<TSut>());
+        }
+    }
+
+    public abstract class AutoMoqTest<TSut> : AutoFixtureTest<TSut>
+    {
+        protected AutoMoqTest() : base(fixture => fixture.Customize(new AutoMoqCustomization { ConfigureMembers = true }))
+        {
         }
     }
 }

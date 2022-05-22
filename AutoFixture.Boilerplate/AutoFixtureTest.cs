@@ -31,4 +31,20 @@ namespace AutoFixture.Boilerplate
 
         protected virtual void CustomizeFixture(IFixture fixture) { }
     }
+
+    public abstract class AutoFixtureTest<TSut> : AutoFixtureTest
+    {
+        private readonly Lazy<TSut> _lazySut;
+
+        protected TSut Sut => _lazySut.Value;
+        
+        protected AutoFixtureTest() : this(_ => { })
+        {
+        }
+
+        protected AutoFixtureTest(Action<IFixture> mandatoryFixtureCustomization) : base(mandatoryFixtureCustomization)
+        {
+            _lazySut = new Lazy<TSut>(() => Fixture.Create<TSut>());
+        }
+    }
 }

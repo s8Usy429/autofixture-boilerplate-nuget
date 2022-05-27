@@ -1,0 +1,31 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Checkout the default branch
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.x.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Release --no-restore
+
+      - name: Test
+        run: dotnet test -c Release --no-build --verbosity normal
+        
+      - name: Publish
+        run: dotnet nuget push AutoFixture.Boilerplate/bin/Release/AutoFixture.Boilerplate.*.nupkg -s https://nuget.pkg.github.com/s8Usy429/index.json -k ${{secrets.GITHUB_TOKEN}}

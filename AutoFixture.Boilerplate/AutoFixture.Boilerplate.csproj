@@ -1,45 +1,56 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<EnableNETAnalyzers>True</EnableNETAnalyzers>
-	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-	<PackageLicenseFile>LICENSE</PackageLicenseFile>
-	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	<AnalysisLevel>latest</AnalysisLevel>
-	<Authors>s8Usy429</Authors>
-	<Company>s8Usy429</Company>
-	<Description>A set of convenient base classes and attributes to work with AutoMoq.</Description>
-	<PackageProjectUrl>https://github.com/s8Usy429/autofixture-boilerplate-nuget</PackageProjectUrl>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<RepositoryUrl>https://github.com/s8Usy429/autofixture-boilerplate-nuget</RepositoryUrl>
-	<PackageTags>AutoMoq;xUnit;unit test;dotnet</PackageTags>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
 
-  <ItemGroup>
-	<None Include="..\LICENSE" Link="LICENSE">
-	  <Pack>True</Pack>
-	  <PackagePath>\</PackagePath>
-	</None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<PropertyGroup>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+		<AnalysisLevel>latest</AnalysisLevel>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
-    <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
-    <PackageReference Include="Roslynator.Analyzers" Version="4.1.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.39.0.47922">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
-  </ItemGroup>
+	<PropertyGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Authors>s8Usy429</Authors>
+		<Company>s8Usy429</Company>
+		<Description>A set of convenient base classes and attributes to work with AutoMoq.</Description>
+		<PackageProjectUrl>https://github.com/s8Usy429/autofixture-boilerplate-nuget</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/s8Usy429/autofixture-boilerplate-nuget</RepositoryUrl>
+		<PackageTags>AutoMoq;xUnit;unit test;dotnet</PackageTags>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\LICENSE" Link="LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
+		<PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<PackageReference Include="Roslynator.Analyzers" Version="4.1.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.39.0.47922">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
+	</ItemGroup>
 
 </Project>

@@ -20,9 +20,12 @@
             _dependency3 = dependency3;
         }
 
-        public int Sum(int offset)
+        public string Concat(string prefix)
         {
-            return offset + _dependency1.GetSum1() + _dependency2.GetSum2() + _dependency3.GetSum3();
+            return prefix
+                + _dependency1.GetString()
+                + _dependency2.GetString()
+                + _dependency3.GetString();
         }
     }
 }

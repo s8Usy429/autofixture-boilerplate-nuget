@@ -2,6 +2,6 @@
 {
     public interface IDependency2
     {
-        int GetSum2();
+        string GetString();
     }
 }

@@ -4,7 +4,6 @@ A set of convenient base classes and attributes to work with AutoMoq.
 ## Content
 | Class                      | Description                                                     |
 |:--------------------------:|-----------------------------------------------------------------|
-| AutoFixtureTest            | Base class (abstract) exposing a Fixture                        |
 | AutoMoqTest                | Base class (abstract) exposing a Fixture and setting up AutoMoq |
 | AutoMoqDataAttribute       | An attribute expending AutoData to use AutoMoq                  |
 | InlineAutoMoqDataAttribute | An attribute expending InlineAutoData to use AutoMoq            |
@@ -18,38 +17,24 @@ You can inherit all your test classes from AutoMoqTest.
 public class TheSutTests : AutoMoqTest<TheTypeOfTheSut>
 {
 	...
-	// Use the Fixture property exposed from the base class
-	var param1 = Fixture.Create<string>();
 
+	// Arrange
+	// Use the Fixture property exposed from the base class
+	var prefix = Fixture.Create<string>();
+	var demo2 = Fixture.Create<string>();
+
+	// Use the FreezeMock extension method (short for Fixture.Freeze<Mock<T>>())
+	Fixture.FreezeMock<IDependency2>()
+		.Setup(s => s.GetString())
+		.Returns(demo2);
+
+	// Act
 	// Use the Sut property exposed from the base class
-	Sut.MethodUnderTest(param1);
+	var response = Sut.Concat(prefix);
 
-	// Use the Mock<T> method exposed from the base class (short for Fixture.Freeze<Mock<T>>())
-	Mock<TypeOfDependency>().Verify(s => s.DependentMethod());
-	...
-}
-```
+	// Assert
+	response.Should().Contain(demo2);
 
-### AutoFixtureTest
-You can inherit all your test classes from AutoFixtureTest.
-```cs
-public class TheSutTests : AutoFixtureTest
-{
-	...
-	// Use the Fixture property exposed from the base class
-	var param1 = Fixture.Create<string>();
-	
-	// Use the Mock<T> method exposed from the base class (short for Fixture.Freeze<Mock<T>>())
-	var mockDependency1 = Mock<TypeOfDependency1>();
-	...
-	var mockDependencyN = Mock<TypeOfDependencyN>();
-	
-	// Create the SUT and pass all the mocks
-	var sut = new TheTypeOfTheSut(mockDependency1.Object, ..., mockDependencyN.Object);
-
-	sut.MethodUnderTest(param1);
-	
-	mockDependency.Verify(s => s.DependentMethod());
 	...
 }
 ```
@@ -60,14 +45,23 @@ You can then acces those mocks supplying them as parameters.
 ```cs
 public class TheSutTests
 {
-        [Theory, AutoMoqData]
-        public void Test1(
-            int a,
-            [Frozen] Mock<TypeOfDependency1> mockDependency1,
-            [Frozen] Mock<TypeOfDependencyN> mockDependencyN,
-            TheTypeOfTheSut sut)
+	[Theory, AutoMoqData]
+	public void Test1(
+		string prefix,
+		string demo2,
+		[Frozen] Mock<IDependency2> mockDependency2,
+		TheTypeOfTheSut sut)
 	{
-		...
+		// Arrange
+		mockDependency2
+			.Setup(s => s.GetString())
+			.Returns(demo2);
+
+		// Act
+		var response = sut.Concat(prefix);
+
+		// Assert
+		response.Should().Contain(demo2);
 	}
 }
 ```
@@ -78,30 +72,37 @@ You can then acces those mocks supplying them as parameters.
 ```cs
 public class TheSutTests
 {
-        [Theory]
-        [InlineAutoMoqData(1, 2)]
-        [InlineAutoMoqData(3, 4)]
-        public void Test1(
-            int a,
-            int b,
-            [Frozen] Mock<TypeOfDependency1> mockDependency1,
-            [Frozen] Mock<TypeOfDependencyN> mockDependencyN,
-            TheTypeOfTheSut sut)
+	[Theory]
+	[InlineAutoMoq("fixed")]
+	public void Test1(
+		string demo2,
+		string prefix,
+		[Frozen] Mock<IDependency2> mockDependency2,
+		TheTypeOfTheSut sut)
 	{
-		...
+		// Arrange
+		mockDependency2
+			.Setup(s => s.GetString())
+			.Returns(demo2);
+
+		// Act
+		var response = sut.Concat(prefix);
+
+		// Assert
+		response.Should().Contain("fixed");
 	}
 }
 ```
 
 ### Customize the Fixture
-#### Using AutoMoqTest or AutoFixtureTest
-It is possible to customize the exposed Fixture by overriding the CustomizeFixture method.
+#### Using AutoMoqTest
+It is possible to customize the exposed Fixture by calling a specific base class constructor.
 ```cs
 public class TheSutTests : AutoMoqTest
 {
-	protected override void CustomizeFixture(IFixture fixture)
+	public TheSutTests()
+		: base(fixture => fixture.Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery()))))
 	{
-		fixture.Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
 	}
 }
 ```
@@ -140,14 +141,16 @@ public class TheSutTests
 {
 	private class CustomizedAutoMoqDataAttribute : AutoMoqDataAttribute
 	{
-		public CustomizedAutoMoqDataAttribute() : base(fixture => fixture.Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery()))))
+		public CustomizedAutoMoqDataAttribute()
+			: base(fixture => fixture.Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery()))))
 		{
 		}
 	}
 
 	private class CustomizedInlineAutoMoqDataAttribute : InlineAutoMoqDataAttribute
 	{
-		public CustomizedInlineAutoMoqDataAttribute(params object[] values) : base(new CustomizedAutoMoqDataAttribute(), values)
+		public CustomizedInlineAutoMoqDataAttribute(params object[] values)
+			: base(fixture => fixture.Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery()))), values)
 		{
 		}
 	}

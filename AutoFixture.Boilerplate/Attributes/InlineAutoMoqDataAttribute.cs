@@ -1,17 +1,16 @@
 ﻿using AutoFixture.Xunit2;
+using System;
 
-namespace AutoFixture.Boilerplate
+namespace AutoFixture.Boilerplate.Attributes
 {
     public class InlineAutoMoqDataAttribute : InlineAutoDataAttribute
     {
         public InlineAutoMoqDataAttribute(params object[] values) : base(new AutoMoqDataAttribute(), values)
         {
-
         }
 
-        protected InlineAutoMoqDataAttribute(AutoMoqDataAttribute autoMoqDataAttribute, params object[] values) : base(autoMoqDataAttribute, values)
+        public InlineAutoMoqDataAttribute(Action<IFixture> fixtureCustomizations, params object[] values) : base(new AutoMoqDataAttribute(fixtureCustomizations), values)
         {
-
         }
     }
 }

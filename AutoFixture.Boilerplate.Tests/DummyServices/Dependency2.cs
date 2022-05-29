@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace AutoFixture.Boilerplate.Tests.DummyServices
+﻿namespace AutoFixture.Boilerplate.Tests.DummyServices
 {
     public class Dependency2 : IDependency2
     {
-        public int GetSum2()
+        public string GetString()
         {
             throw new NotImplementedException();
         }

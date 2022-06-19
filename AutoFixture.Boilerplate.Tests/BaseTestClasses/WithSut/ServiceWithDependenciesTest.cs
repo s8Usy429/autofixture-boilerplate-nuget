@@ -1,5 +1,4 @@
 ﻿using AutoFixture.Boilerplate.Tests.DummyServices;
-using AutoFixture.Xunit2;
 using FluentAssertions;
 using Xunit;
 
@@ -7,11 +6,13 @@ namespace AutoFixture.Boilerplate.Tests.BaseTestClasses.WithSut
 {
     public class ServiceWithDependenciesTest : AutoMoqTest<ServiceWithDependencies>
     {
-        [Theory, AutoData]
-        public void AutoMoqTest_ServiceWithDependencies(string prefix, string demo2)
+        [Fact]
+        public void AutoMoqTest_ServiceWithDependencies()
         {
             // Arrange
-            Fixture.FreezeMock<IDependency2>()
+            string prefix = Create<string>();
+            string demo2 = Create<string>();
+            Mock<IDependency2>()
                 .Setup(s => s.GetString())
                 .Returns(demo2);
 

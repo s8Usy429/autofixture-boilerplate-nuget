@@ -1,6 +1,5 @@
 ﻿using AutoFixture.Boilerplate.Tests.DummyServices;
 using AutoFixture.Kernel;
-using AutoFixture.Xunit2;
 using FluentAssertions;
 using Xunit;
 
@@ -8,21 +7,24 @@ namespace AutoFixture.Boilerplate.Tests.BaseTestClasses.WithoutSut
 {
     public class ServiceWithAmbiguousContructorTest : AutoMoqTest
     {
-        protected override void CustomizeFixture(IFixture fixture)
+        public ServiceWithAmbiguousContructorTest()
         {
-            fixture.Customize<ServiceWithAmbiguousContructor>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
+            Customize<ServiceWithAmbiguousContructor>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
         }
 
-        [Theory, AutoData]
-        public void AutoMoqTest_ServiceWithAmbiguousContructor(string prefix, string demo2)
+        [Fact]
+        public void AutoMoqTest_ServiceWithAmbiguousContructor()
         {
             // Arrange
-            Fixture.FreezeMock<IDependency2>()
+            string prefix = Create<string>();
+            string demo2 = Create<string>();
+            Mock<IDependency2>()
                 .Setup(s => s.GetString())
                 .Returns(demo2);
+            var sut = Create<ServiceWithAmbiguousContructor>();
 
             // Act
-            var response = Fixture.Create<ServiceWithAmbiguousContructor>().Concat(prefix);
+            var response = sut.Concat(prefix);
 
             // Assert
             response.Should().Contain(demo2);

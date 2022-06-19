@@ -2,11 +2,11 @@
 A set of convenient base classes and attributes to work with AutoMoq.
 
 ## Content
-| Class                      | Description                                                     |
-|:--------------------------:|-----------------------------------------------------------------|
-| AutoMoqTest                | Base class (abstract) exposing a Fixture and setting up AutoMoq |
-| AutoMoqDataAttribute       | An attribute expending AutoData to use AutoMoq                  |
-| InlineAutoMoqDataAttribute | An attribute expending InlineAutoData to use AutoMoq            |
+| Class                      | Description                                              |
+|:--------------------------:|----------------------------------------------------------|
+| AutoMoqTest                | Abstract class inheriting Fixture and setting up AutoMoq |
+| AutoMoqDataAttribute       | An attribute expending AutoData to use AutoMoq           |
+| InlineAutoMoqDataAttribute | An attribute expending InlineAutoData to use AutoMoq     |
 
 ## Usage
 Look at real test samples here : <a href="https://github.com/s8Usy429/autofixture-boilerplate-nuget/tree/main/AutoFixture.Boilerplate.Tests">Samples</a>
@@ -19,17 +19,13 @@ public class TheSutTests : AutoMoqTest<TheTypeOfTheSut>
 	...
 
 	// Arrange
-	// Use the Fixture property exposed from the base class
-	var prefix = Fixture.Create<string>();
-	var demo2 = Fixture.Create<string>();
-
-	// Use the FreezeMock extension method (short for Fixture.Freeze<Mock<T>>())
-	Fixture.FreezeMock<IDependency2>()
+	var prefix = Create<string>();
+	var demo2 = Create<string>();
+	Mock<IDependency2>()
 		.Setup(s => s.GetString())
 		.Returns(demo2);
 
 	// Act
-	// Use the Sut property exposed from the base class
 	var response = Sut.Concat(prefix);
 
 	// Assert
@@ -96,18 +92,18 @@ public class TheSutTests
 
 ### Customize the Fixture
 #### Using AutoMoqTest
-It is possible to customize the exposed Fixture by overriding the CustomizeFixture virtual method.
+It is possible to customize the Fixture in your constructor.
 ```cs
 public class TheSutTests : AutoMoqTest
 {
-    protected override void CustomizeFixture(IFixture fixture)
+    public class TheSutTests()
     {
-        fixture.Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
+        Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
     }
 }
 ```
 This will apply to all the tests in the class.
-If you don't want this behavior, your only choice is to use the Fixture property directly inside your tests.
+If you don't want this behavior, call the Customize method directly inside your tests.
 ```cs
 public class TheSutTests : AutoMoqTest
 {
@@ -115,7 +111,7 @@ public class TheSutTests : AutoMoqTest
 	public void Test1()
 	{
 		...
-		Fixture.Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
+		Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
 		...
 	}
 }

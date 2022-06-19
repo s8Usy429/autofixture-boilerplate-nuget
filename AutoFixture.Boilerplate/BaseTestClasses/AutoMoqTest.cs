@@ -10,19 +10,17 @@ namespace AutoFixture.Boilerplate
 
         protected IFixture Fixture => _lazyFixture.Value;
 
-        protected AutoMoqTest() : this(_ => { })
-        {
-        }
-
-        protected AutoMoqTest(Action<IFixture> fixtureCustomizations)
+        protected AutoMoqTest()
         {
             _lazyFixture = new Lazy<IFixture>(() =>
             {
                 var fixture = new Fixture().Customize(new AutoMoqCustomization { ConfigureMembers = true });
-                fixtureCustomizations(fixture);
+                CustomizeFixture(fixture);
                 return fixture;
             });
         }
+
+        protected virtual void CustomizeFixture(IFixture fixture) { }
     }
 
     public abstract class AutoMoqTest<TSut> : AutoMoqTest
@@ -31,11 +29,7 @@ namespace AutoFixture.Boilerplate
 
         protected TSut Sut => _lazySut.Value;
 
-        protected AutoMoqTest() : this(_ => { })
-        {
-        }
-
-        protected AutoMoqTest(Action<IFixture> fixtureCustomizations) : base(fixtureCustomizations)
+        protected AutoMoqTest()
         {
             _lazySut = new Lazy<TSut>(() => Fixture.Create<TSut>());
         }

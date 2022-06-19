@@ -96,14 +96,14 @@ public class TheSutTests
 
 ### Customize the Fixture
 #### Using AutoMoqTest
-It is possible to customize the exposed Fixture by calling a specific base class constructor.
+It is possible to customize the exposed Fixture by overriding the CustomizeFixture virtual method.
 ```cs
 public class TheSutTests : AutoMoqTest
 {
-	public TheSutTests()
-		: base(fixture => fixture.Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery()))))
-	{
-	}
+    protected override void CustomizeFixture(IFixture fixture)
+    {
+        fixture.Customize<TheTypeToCustomize>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
+    }
 }
 ```
 This will apply to all the tests in the class.

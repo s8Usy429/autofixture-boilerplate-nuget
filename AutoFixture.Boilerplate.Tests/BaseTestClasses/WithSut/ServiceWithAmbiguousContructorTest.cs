@@ -8,8 +8,9 @@ namespace AutoFixture.Boilerplate.Tests.BaseTestClasses.WithSut
 {
     public class ServiceWithAmbiguousContructorTest : AutoMoqTest<ServiceWithAmbiguousContructor>
     {
-        public ServiceWithAmbiguousContructorTest() : base(fixture => fixture.Customize<ServiceWithAmbiguousContructor>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery()))))
+        protected override void CustomizeFixture(IFixture fixture)
         {
+            fixture.Customize<ServiceWithAmbiguousContructor>(c => c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
         }
 
         [Theory, AutoData]

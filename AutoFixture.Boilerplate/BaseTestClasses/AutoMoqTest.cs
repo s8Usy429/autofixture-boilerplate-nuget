@@ -9,9 +9,9 @@ namespace AutoFixture.Boilerplate
 {
     public abstract class AutoMoqTest : Fixture
     {
-        protected AutoMoqTest()
+        protected AutoMoqTest(bool autosetup = true)
         {
-            Customize(new AutoMoqCustomization { ConfigureMembers = true });
+            Customize(new AutoMoqCustomization { ConfigureMembers = autosetup });
         }
 
         protected Mock<T> Mock<T>() where T : class => Freeze<Mock<T>>();
